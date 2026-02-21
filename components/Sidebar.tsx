@@ -22,7 +22,7 @@ export const Sidebar = async () => {
 
       <div className="web-status">
         <div className="web-status-card">
-          <span>4</span>
+          <span>{projects.length}</span>
           <p className="status-label">Projectos</p>
         </div>
         <div className="web-status-card">

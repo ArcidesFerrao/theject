@@ -72,6 +72,8 @@ model Project {
   revenueConfidential Boolean       @default(false)
   featuredUntil       DateTime?
 
+  content Json?
+
   createdAt DateTime @default(now())
 
   verifications Verification[]
