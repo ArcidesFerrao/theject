@@ -1,6 +1,10 @@
+import { db } from "@/lib/db";
 import { ColumnCard, ListSpan, RowCard } from "./Card";
 
-export const Sidebar = () => {
+export const Sidebar = async () => {
+  const projects = await db.project.findMany();
+
+  console.log(projects);
   return (
     <section className="sidebar p-4">
       <h5 className="label">Para Venda</h5>

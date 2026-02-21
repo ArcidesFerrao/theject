@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  SELLER
+  BUYER
+  ADMIN
+}
+
+enum SubscriptionTier {
+  FREE
+  PREMIUM
+}
+
+enum ProjectStatus {
+  ACTIVE
+  FOR_SALE
+  SHOWCASE
+}
+
+enum VerificationType {
+  LEGAL
+  REVENUE
+  PROFIT
+}
+
+enum VerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id           String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String?
+  email        String           @unique
+  passwordHash String
+  role         UserRole
+  subscription SubscriptionTier @default(FREE)
+  createdAt    DateTime         @default(now())
+
+  projects     Project[]
+  reviewsGiven SellerRating[] @relation("BuyerReviews")
+  reviewsRec   SellerRating[] @relation("SellerReviews")
+}
+
+model Project {
+  id      String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  ownerId String @db.Uuid
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  title         String
+  category      String?
+  industry      String?
+  businessModel String?
+
+  status              ProjectStatus @default(ACTIVE)
+  verificationLevel   Int           @default(0)
+  blueprintAvailable  Boolean       @default(false)
+  revenueConfidential Boolean       @default(false)
+  featuredUntil       DateTime?
+
+  createdAt DateTime @default(now())
+
+  verifications Verification[]
+  dealRequests  DealRequest[]
+}
+
+model Verification {
+  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  projectId String  @db.Uuid
+  project   Project @relation(fields: [projectId], references: [id])
+
+  type        VerificationType
+  status      VerificationStatus @default(PENDING)
+  documentUrl String?
+  createdAt   DateTime           @default(now())
+}
+
+model DealRequest {
+  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  projectId String  @db.Uuid
+  project   Project @relation(fields: [projectId], references: [id])
+
+  buyerId  String @db.Uuid
+  sellerId String @db.Uuid
+
+  ndaSigned Boolean @default(false)
+  status    String  @default("PENDING")
+
+  createdAt DateTime @default(now())
+}
+
+model SellerRating {
+  id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  sellerId String @db.Uuid
+  buyerId  String @db.Uuid
+
+  seller User @relation("SellerReviews", fields: [sellerId], references: [id])
+  buyer  User @relation("BuyerReviews", fields: [buyerId], references: [id])
+
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+}

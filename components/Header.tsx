@@ -10,12 +10,22 @@ export const Header = () => {
 };
 
 const TopBar = () => {
+  const date = new Date();
+
+  const formatted = new Intl.DateTimeFormat("pt-MZ", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(date);
+
+  console.log(formatted);
   return (
     <div className="flex flex-col items-center gap-2 py-2">
       <div className="logo">
         The<span>Ject</span>
       </div>
-      <span className="sub">sexta-feira, 20 de fevereiro de 2026</span>
+      <span className="sub">{formatted}</span>
       <h5>Inteligência de Projectos Verificados · Moçambique</h5>
     </div>
   );
