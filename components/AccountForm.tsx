@@ -1,8 +1,9 @@
+"use client";
 import Link from "next/link";
 
-export const AccountForm = () => {
+export const SignUpForm = () => {
   return (
-    <form className="account-form p-4 flex flex-col gap-4">
+    <form className="account-form self-center p-4 flex flex-col gap-4">
       <h1>Criar Conta</h1>
       <div className="">
         <label htmlFor="name">Nome Completo</label>
@@ -34,8 +35,8 @@ export const AccountForm = () => {
         </select>
       </div>
 
-      <input type="submit" value="Criar Conta" />
       <div>
+        <input type="submit" value="Criar Conta" />
         <p>
           Ja tens uma conta? <Link href="/login">Faz login</Link>
         </p>
@@ -46,18 +47,30 @@ export const AccountForm = () => {
 
 export const LoginForm = () => {
   return (
-    <form className="account-form p-4 flex flex-col gap-4">
+    <form className="account-form self-center p-4 flex flex-col gap-4">
       <h1>Fazer Login</h1>
       <div>
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" required />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="seu@email.com"
+          required
+        />
       </div>
       <div>
         <label htmlFor="password">Senha</label>
-        <input type="password" id="password" name="password" required />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="*******"
+          required
+        />
       </div>
-      <input type="submit" value="Fazer Login" />
       <div>
+        <input type="submit" value="Fazer Login" />
         <p>
           Sem conta? <Link href="/signup">Regista-te</Link>
         </p>
