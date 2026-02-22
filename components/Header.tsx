@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const Header = () => {
   return (
     <header className="header">
@@ -19,9 +21,9 @@ const TopBar = () => {
 
   return (
     <div className="flex flex-col items-center gap-2 py-2">
-      <div className="logo">
+      <Link href="/" className="logo">
         The<span>Ject</span>
-      </div>
+      </Link>
       <span className="sub">{formatted}</span>
       <h5>Inteligência de Projectos Verificados · Moçambique</h5>
     </div>

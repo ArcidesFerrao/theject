@@ -37,8 +37,8 @@ export const SignUpForm = () => {
 
       <div>
         <input type="submit" value="Criar Conta" />
-        <p>
-          Ja tens uma conta? <Link href="/login">Faz login</Link>
+        <p className="text-center">
+          Ja tens uma conta? <Link href="/login">Entrar</Link>
         </p>
       </div>
     </form>
@@ -71,7 +71,7 @@ export const LoginForm = () => {
       </div>
       <div>
         <input type="submit" value="Fazer Login" />
-        <p>
+        <p className="text-center">
           Sem conta? <Link href="/signup">Regista-te</Link>
         </p>
       </div>
