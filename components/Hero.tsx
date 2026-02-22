@@ -1,4 +1,9 @@
-export const Hero = () => {
+import { auth } from "@/lib/auth";
+export const Hero = async () => {
+  const session = await auth();
+
+  console.log(session);
+
   return (
     <div className="hero">
       <h1>

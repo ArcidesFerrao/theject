@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, IBM_Plex_Mono, Lato } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
+import { SessionProvider } from "next-auth/react";
 
 const cormorantSans = Cormorant_Garamond({
   variable: "--font-cormorant-sans",
@@ -37,8 +38,10 @@ export default function RootLayout({
       <body
         className={`${cormorantSans.variable} ${ibmMono.variable} ${latoSans.variable} antialiased`}
       >
-        <Header />
-        {children}
+        <SessionProvider>
+          <Header />
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );
