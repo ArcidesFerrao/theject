@@ -20,10 +20,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           where: { email: credentials.email as string },
         })
 
-        if (!user || !user.passwordHash) {
-            throw new Error('Invalid email or password')
-        }
-
+        if (!user || !user.passwordHash) return null 
+        
         const passwordMatch = await bcrypt.compare(
           credentials.password as string,
           user.passwordHash
